@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 
-export class RaceTrack {
+export class Race {
   private _id;
 
   constructor(
@@ -31,6 +31,6 @@ export class RaceTrack {
   }
 }
 
-export interface RaceTrackRepositoryInterface {
-  findBy(raceTrackName: string): RaceTrack;
+export interface RaceRepositoryInterface {
+  findBy(raceTrackName: string): Race;
 }

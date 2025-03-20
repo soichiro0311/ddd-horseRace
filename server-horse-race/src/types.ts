@@ -1,5 +1,5 @@
 const TYPES = {
-  RaceTrackRepository: Symbol.for("RaceTrackRepository"),
+  RaceRepository: Symbol.for("RaceRepository"),
 };
 
 export { TYPES };

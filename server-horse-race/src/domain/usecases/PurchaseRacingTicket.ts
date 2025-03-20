@@ -1,15 +1,15 @@
-import { RaceTrackRepositoryInterface } from "../RaceTrack";
+import { RaceRepositoryInterface } from "../Race";
 import { inject } from "inversify";
 import { RacingTicket } from "../RacingTicket";
 import { TYPES } from "../../types";
 
 export class PurchaseRacingTicket {
   public constructor(
-    @inject(TYPES.RaceTrackRepository)
-    private raceTrackRepository: RaceTrackRepositoryInterface
+    @inject(TYPES.RaceRepository)
+    private raceRepository: RaceRepositoryInterface
   ) {}
   purchase(raceTrackName: string) {
-    const raceTrack = this.raceTrackRepository.findBy(raceTrackName);
+    const raceTrack = this.raceRepository.findBy(raceTrackName);
     const ticket = new RacingTicket(raceTrack);
     return ticket;
   }

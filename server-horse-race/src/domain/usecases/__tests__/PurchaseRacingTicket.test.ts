@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { PurchaseRacingTicket } from "../PurchaseRacingTicket";
-import { RaceTrackRepositoryInterface } from "../../RaceTrack";
+import { RaceRepositoryInterface } from "../../Race";
 import { TYPES } from "../../../types";
 import { myContainer } from "../../../inversifyConfig";
 import { WinningStatus } from "../../enum/WinningStatus";
@@ -9,14 +9,14 @@ import { fail } from "assert";
 
 describe("馬券の購入", () => {
   vi.useFakeTimers();
-  const raceTrackRepository = myContainer.get<RaceTrackRepositoryInterface>(
-    TYPES.RaceTrackRepository
+  const raceRepository = myContainer.get<RaceRepositoryInterface>(
+    TYPES.RaceRepository
   );
 
   test("購入可能な馬券を登録する", () => {
     vi.setSystemTime(new Date("2025/1/1 14:00:00"));
     const purchaseRacingTicketUseCase = new PurchaseRacingTicket(
-      raceTrackRepository
+      raceRepository
     );
     const ticket = purchaseRacingTicketUseCase.purchase("大井競馬場");
     expect(ticket.winningStatus()).toEqual(WinningStatus.UNDETERMINED);
@@ -24,7 +24,7 @@ describe("馬券の購入", () => {
   test("購入対象のレースの購入期限が過ぎている場合、購入できないこと", () => {
     vi.setSystemTime(new Date("2025/1/1 14:10:01"));
     const purchaseRacingTicketUseCase = new PurchaseRacingTicket(
-      raceTrackRepository
+      raceRepository
     );
     try {
       purchaseRacingTicketUseCase.purchase("大井競馬場");
