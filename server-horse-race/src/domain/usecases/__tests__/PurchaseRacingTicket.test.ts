@@ -22,6 +22,7 @@ describe("馬券の購入", () => {
     const ticket = purchaseRacingTicketUseCase.purchase(
       "大井競馬場",
       RaceStyle.TANSHO,
+      100,
       "Horse1"
     );
     expect(ticket.winningStatus()).toEqual(WinningStatus.UNDETERMINED);
@@ -35,6 +36,7 @@ describe("馬券の購入", () => {
       purchaseRacingTicketUseCase.purchase(
         "大井競馬場",
         RaceStyle.TANSHO,
+        100,
         "Horse1"
       );
       fail();
@@ -55,6 +57,7 @@ describe("馬券の購入", () => {
         purchaseRacingTicketUseCase.purchase(
           "大井競馬場",
           RaceStyle.TANSHO,
+          100,
           "Horse1",
           "Horse2",
           "Horse3"
@@ -73,7 +76,11 @@ describe("馬券の購入", () => {
         raceRepository
       );
       try {
-        purchaseRacingTicketUseCase.purchase("大井競馬場", RaceStyle.TANSHO);
+        purchaseRacingTicketUseCase.purchase(
+          "大井競馬場",
+          RaceStyle.TANSHO,
+          100
+        );
         fail();
       } catch (e) {
         const error = e as DomainError;

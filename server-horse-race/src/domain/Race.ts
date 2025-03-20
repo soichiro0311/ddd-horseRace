@@ -13,6 +13,10 @@ export class Race {
     this._id = randomUUID();
   }
 
+  id() {
+    return this._id;
+  }
+
   trackName() {
     return this._trackName;
   }

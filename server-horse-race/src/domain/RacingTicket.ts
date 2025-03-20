@@ -2,24 +2,30 @@ import { RaceStyle } from "./enum/RaceStyle";
 import { WinningStatus } from "./enum/WinningStatus";
 import { DomainError } from "./error/DomainError";
 import { Race } from "./Race";
+import { randomUUID } from "crypto";
 
 export class RacingTicket {
+  private _id: string;
   private _winningStatus: WinningStatus;
 
   constructor(
     private _race: Race,
     private _raceStyle: RaceStyle,
+    private _purchaseAmount: number,
     private _1stPlaceHorseID?: string,
     private _2ndPlaceHorseID?: string,
     private _3rdPlaceHorseID?: string
   ) {
+    this._id = randomUUID();
     this._winningStatus = WinningStatus.UNDETERMINED;
+
     const current = new Date();
     if (current > _race.purchaseLimitDatetime()) {
       throw new DomainError(
         `購入対象のレースは購入期限を過ぎております。 レース番号: ${_race.raceNumber()}, 競馬場: ${_race.trackName()}, 購入期限: ${_race.purchaseLimitDatetimeDisplay()}`
       );
     }
+
     this.validatePrediction(
       _raceStyle,
       _1stPlaceHorseID,
@@ -32,7 +38,23 @@ export class RacingTicket {
     return this._winningStatus;
   }
 
-  validatePrediction(
+  purchaseAmount() {
+    return this._purchaseAmount;
+  }
+
+  firstPlaceHorseId() {
+    return this._1stPlaceHorseID;
+  }
+
+  raceId() {
+    return this._race.id();
+  }
+
+  raceStyle() {
+    return this._raceStyle;
+  }
+
+  private validatePrediction(
     raceStyle: RaceStyle,
     _1stPlaceHorseID?: string,
     _2ndPlaceHorseID?: string,
@@ -55,4 +77,8 @@ export class RacingTicket {
         throw new DomainError(`様式が想定外です。様式: ${raceStyle}`);
     }
   }
+}
+
+export interface RacingTicketRepositoryInterface {
+  findById(racingTicketId: string): RacingTicket;
 }

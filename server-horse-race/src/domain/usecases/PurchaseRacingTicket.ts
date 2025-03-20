@@ -12,6 +12,7 @@ export class PurchaseRacingTicket {
   purchase(
     raceTrackName: string,
     raceStyle: RaceStyle,
+    purchaseAmount: number,
     _1stPlaceHorseID?: string,
     _2ndPlaceHorseID?: string,
     _3rdPlaceHorseID?: string
@@ -20,6 +21,7 @@ export class PurchaseRacingTicket {
     const ticket = new RacingTicket(
       raceTrack,
       raceStyle,
+      purchaseAmount,
       _1stPlaceHorseID,
       _2ndPlaceHorseID,
       _3rdPlaceHorseID
