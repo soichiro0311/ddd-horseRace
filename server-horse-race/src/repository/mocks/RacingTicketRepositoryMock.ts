@@ -3,19 +3,25 @@ import {
   RacingTicket,
   RacingTicketRepositoryInterface,
 } from "../../domain/RacingTicket";
-import { Race } from "../../domain/Race";
-import { RaceStyle } from "../../domain/enum/RaceStyle";
+import { DomainError } from "../../domain/error/DomainError";
 
 @injectable()
 export class RacingTicketRepositoryMock
   implements RacingTicketRepositoryInterface
 {
+  private tickets: { [key: string]: RacingTicket } = {};
+
   findById(racingTicketId: string): RacingTicket {
-    return new RacingTicket(
-      new Race(1, "大井競馬場", new Date("2025/1/3 14:00:00")),
-      RaceStyle.TANSHO,
-      100,
-      "HORSE1"
-    );
+    const ticket = this.tickets[racingTicketId];
+    if (!ticket) {
+      throw new DomainError(
+        `RacingTicket not found with id: ${racingTicketId}`
+      );
+    }
+    return ticket;
+  }
+
+  setTicket(racingTicketId: string, ticket: RacingTicket) {
+    this.tickets[racingTicketId] = ticket;
   }
 }

@@ -3,7 +3,6 @@ import { RacingTicketRepositoryInterface } from "../RacingTicket";
 import { TYPES } from "../../types";
 import { OddsRepositoryInterface } from "../interface/OddsRepository";
 import { Refund } from "../Refund";
-import { RaceStyle } from "../enum/RaceStyle";
 import { DomainError } from "../error/DomainError";
 
 export class RefundTicket {
@@ -21,19 +20,12 @@ export class RefundTicket {
       ticket.raceStyle()
     );
 
-    switch (ticket.raceStyle()) {
-      case RaceStyle.TANSHO:
-        if (ticket.firstPlaceHorseId() == null) {
-          throw new DomainError("");
-        }
-        const refundAmount = raceOdds
-          .find((odds) => {
-            return odds.horseId() === ticket.firstPlaceHorseId();
-          })!
-          .refundAmount();
-        return new Refund(refundAmount, ticket.purchaseAmount());
-      default:
-        throw new DomainError("");
+    if (raceOdds == null || raceOdds.length === 0) {
+      throw new DomainError(
+        `対象のレースと様式のオッズが登録されていません。レースID: ${ticket.raceId()}, 様式: ${ticket.raceStyle()}`
+      );
     }
+
+    return ticket.raceStyle().refund(ticket, raceOdds);
   }
 }

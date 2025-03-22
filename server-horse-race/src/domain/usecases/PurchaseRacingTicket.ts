@@ -2,7 +2,7 @@ import { RaceRepositoryInterface } from "../Race";
 import { inject } from "inversify";
 import { RacingTicket } from "../RacingTicket";
 import { TYPES } from "../../types";
-import { RaceStyle } from "../enum/RaceStyle";
+import { RaceStyle } from "../raceStyle/RaceStyle";
 
 export class PurchaseRacingTicket {
   public constructor(

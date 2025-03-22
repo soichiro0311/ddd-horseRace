@@ -1,5 +1,3 @@
-import { RaceStyle } from "./enum/RaceStyle";
-
 export class Refund {
   constructor(
     private refundAmount: number,

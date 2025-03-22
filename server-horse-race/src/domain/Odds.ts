@@ -1,4 +1,4 @@
-import { RaceStyle } from "./enum/RaceStyle";
+import { RaceStyle } from "./raceStyle/RaceStyle";
 
 export class Odds {
   constructor(

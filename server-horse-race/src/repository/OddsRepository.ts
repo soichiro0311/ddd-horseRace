@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { OddsRepositoryInterface } from "../domain/interface/OddsRepository";
 import { Odds } from "../domain/Odds";
-import { RaceStyle } from "../domain/enum/RaceStyle";
+import { RaceStyle } from "../domain/raceStyle/RaceStyle";
 
 @injectable()
 export class OddsRepository implements OddsRepositoryInterface {

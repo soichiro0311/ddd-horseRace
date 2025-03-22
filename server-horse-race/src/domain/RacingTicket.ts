@@ -1,8 +1,8 @@
-import { RaceStyle } from "./enum/RaceStyle";
 import { WinningStatus } from "./enum/WinningStatus";
 import { DomainError } from "./error/DomainError";
 import { Race } from "./Race";
 import { randomUUID } from "crypto";
+import { RaceStyle } from "./raceStyle/RaceStyle";
 
 export class RacingTicket {
   private _id: string;
@@ -26,12 +26,16 @@ export class RacingTicket {
       );
     }
 
-    this.validatePrediction(
-      _raceStyle,
+    _raceStyle.validatePredicate(
+      _race,
       _1stPlaceHorseID,
       _2ndPlaceHorseID,
       _3rdPlaceHorseID
     );
+  }
+
+  id() {
+    return this._id;
   }
 
   winningStatus(): WinningStatus {
@@ -52,30 +56,6 @@ export class RacingTicket {
 
   raceStyle() {
     return this._raceStyle;
-  }
-
-  private validatePrediction(
-    raceStyle: RaceStyle,
-    _1stPlaceHorseID?: string,
-    _2ndPlaceHorseID?: string,
-    _3rdPlaceHorseID?: string
-  ) {
-    switch (raceStyle) {
-      case RaceStyle.TANSHO:
-        if (_1stPlaceHorseID == null) {
-          throw new DomainError(
-            `単勝の場合は1着予想の馬を入力してください。レース番号: ${this._race.raceNumber()}, 競馬場: ${this._race.trackName()}`
-          );
-        }
-        if (_2ndPlaceHorseID != null || _3rdPlaceHorseID != null) {
-          throw new DomainError(
-            `単勝の場合は1着予想の馬のみを入力してください。レース番号: ${this._race.raceNumber()}, 競馬場: ${this._race.trackName()}, 1着予想: ${_1stPlaceHorseID}, 2着予想: ${_2ndPlaceHorseID}, 3着予想: ${_3rdPlaceHorseID}`
-          );
-        }
-        break;
-      default:
-        throw new DomainError(`様式が想定外です。様式: ${raceStyle}`);
-    }
   }
 }
 

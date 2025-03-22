@@ -6,7 +6,7 @@ import { myContainer } from "../../../inversifyConfig";
 import { WinningStatus } from "../../enum/WinningStatus";
 import { DomainError } from "../../error/DomainError";
 import { fail } from "assert";
-import { RaceStyle } from "../../enum/RaceStyle";
+import { Tansho } from "../../raceStyle/Tansho";
 
 describe("馬券の購入", () => {
   vi.useFakeTimers();
@@ -21,7 +21,7 @@ describe("馬券の購入", () => {
     );
     const ticket = purchaseRacingTicketUseCase.purchase(
       "大井競馬場",
-      RaceStyle.TANSHO,
+      new Tansho(),
       100,
       "Horse1"
     );
@@ -35,7 +35,7 @@ describe("馬券の購入", () => {
     try {
       purchaseRacingTicketUseCase.purchase(
         "大井競馬場",
-        RaceStyle.TANSHO,
+        new Tansho(),
         100,
         "Horse1"
       );
@@ -56,7 +56,7 @@ describe("馬券の購入", () => {
       try {
         purchaseRacingTicketUseCase.purchase(
           "大井競馬場",
-          RaceStyle.TANSHO,
+          new Tansho(),
           100,
           "Horse1",
           "Horse2",
@@ -76,11 +76,7 @@ describe("馬券の購入", () => {
         raceRepository
       );
       try {
-        purchaseRacingTicketUseCase.purchase(
-          "大井競馬場",
-          RaceStyle.TANSHO,
-          100
-        );
+        purchaseRacingTicketUseCase.purchase("大井競馬場", new Tansho(), 100);
         fail();
       } catch (e) {
         const error = e as DomainError;
