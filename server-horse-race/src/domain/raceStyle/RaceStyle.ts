@@ -1,7 +1,4 @@
-import { Odds } from "../Odds";
 import { Race } from "../Race";
-import { RacingTicket } from "../RacingTicket";
-import { Refund } from "../Refund";
 
 export interface RaceStyle {
   validatePredicate(
@@ -11,5 +8,9 @@ export interface RaceStyle {
     _3rdPlaceHorseID?: string
   ): void;
 
-  refund(ticket: RacingTicket, raceOdds: Odds[]): Refund;
+  predicateHorseNumber(): number;
+
+  displayName(): string;
+
+  equals(other: RaceStyle): boolean;
 }

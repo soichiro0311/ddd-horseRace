@@ -50,8 +50,16 @@ export class RacingTicket {
     return this._1stPlaceHorseID;
   }
 
+  secondPlaceHorseId() {
+    return this._2ndPlaceHorseID;
+  }
+
   raceId() {
     return this._race.id();
+  }
+
+  trackName() {
+    return this._race.trackName();
   }
 
   raceStyle() {

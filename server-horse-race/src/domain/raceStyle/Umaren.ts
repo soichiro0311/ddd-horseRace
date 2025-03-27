@@ -1,8 +1,5 @@
 import { DomainError } from "../error/DomainError";
-import { Odds } from "../Odds";
 import { Race } from "../Race";
-import { RacingTicket } from "../RacingTicket";
-import { Refund } from "../Refund";
 import { RaceStyle } from "./RaceStyle";
 
 export class Umaren implements RaceStyle {
@@ -23,7 +20,15 @@ export class Umaren implements RaceStyle {
     }
   }
 
-  refund(ticket: RacingTicket, raceOdds: Odds[]): Refund {
-    throw new Error("Unimpleneted!");
+  predicateHorseNumber(): number {
+    return 2;
+  }
+
+  displayName(): string {
+    return "馬連";
+  }
+
+  equals(other: RaceStyle): boolean {
+    return this.displayName() === other.displayName();
   }
 }

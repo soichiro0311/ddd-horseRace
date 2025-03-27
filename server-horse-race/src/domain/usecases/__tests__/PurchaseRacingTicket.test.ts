@@ -81,7 +81,7 @@ describe("馬券の購入", () => {
       } catch (e) {
         const error = e as DomainError;
         expect(error.message).toBe(
-          "単勝の場合は1着予想の馬を入力してください。レース番号: 1, 競馬場: 大井競馬場"
+          "単勝の場合は1着予想の馬のみを入力してください。レース番号: 1, 競馬場: 大井競馬場, 1着予想: undefined, 2着予想: undefined, 3着予想: undefined"
         );
       }
     });

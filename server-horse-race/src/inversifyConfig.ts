@@ -7,9 +7,9 @@ import { RaceRepositoryMock } from "./repository/mocks/RaceRepositoryMock";
 import { RacingTicketRepositoryInterface } from "./domain/RacingTicket";
 import { RacingTicketRepository } from "./repository/RacingTicketRepository";
 import { RacingTicketRepositoryMock } from "./repository/mocks/RacingTicketRepositoryMock";
-import { OddsRepositoryInterface } from "./domain/interface/OddsRepository";
-import { OddsRepositoryMock } from "./repository/mocks/OddsRepositoryMock";
-import { OddsRepository } from "./repository/OddsRepository";
+import { RaceResultRepositoryInterface } from "./domain/interface/RaceResultRepository";
+import { RaceResultRepositoryMock } from "./repository/mocks/RaceResultRepositoryMock";
+import { RaceResultRepository } from "./repository/RaceResultRepository";
 
 const myContainer = new Container();
 
@@ -28,8 +28,12 @@ myContainer
   .inSingletonScope();
 
 myContainer
-  .bind<OddsRepositoryInterface>(TYPES.OddsRepository)
-  .to(process.env.NODE_ENV === "test" ? OddsRepositoryMock : OddsRepository)
+  .bind<RaceResultRepositoryInterface>(TYPES.RaceResultRepository)
+  .to(
+    process.env.NODE_ENV === "test"
+      ? RaceResultRepositoryMock
+      : RaceResultRepository
+  )
   .inSingletonScope();
 
 export { myContainer };
